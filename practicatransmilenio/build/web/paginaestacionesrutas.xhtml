@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+              <style type="text/css">
+            body{
+                background-image: url('recursos/img/fondoprincipal.jpg');
+background-repeat: no-repeat;
+background-attachment: fixed;
+    background-size: 100% 100%;
+            }
+.highlight {
+    background:#FFFFFF  !important ;
+    border-color:#000000;
+}
+     .ui-datatable.myTable th {
+         background: #0066cc;
+         font-weight: normal;
+         border-color:#000000;
+         color: #000000;
+         text-shadow:none;
+         
+}
+        </style>
+         <title>GESTION ESTACIONES RUTAS</title>
+    </h:head>
+    <h:body>
+       <p:growl id="mensajegeneral" autoUpdate="true" showDetail="true" life="3000"/>
+        
+         <h:form id="formIsertarMostrarEstacionesRutas">
+            <p:panelGrid columns="2" style="margin:0 auto">
+                <p:outputLabel value="Nombre de la ruta"/>
+                <p:selectOneMenu id="idruta" value="#{estacionesRutasBean.estacionesrutas.rutas.idRuta}" 
+                                 required="true" requiredMessage="nombre de la ruta es obligatorio">
+                    <f:selectItem itemLabel="Seleccione una Ruta"/>
+                    <f:selectItems value="#{estacionesRutasBean.listarrutas}"/>
+                    <f:ajax execute="idruta"/>
+                </p:selectOneMenu>
+                   <p:outputLabel id="idestacion" value="Nombre de la estacion"/>
+                   <p:selectOneMenu value="#{estacionesRutasBean.estacionesrutas.estaciones.idEstacion}"
+                                    required="true" requiredMessage="nombre de la estacion es obligatorio">
+                        <f:selectItem itemLabel="Seleccione una Estacion"/>
+                        <f:selectItems value="#{estacionesRutasBean.listarestaciones}"/>
+                        <f:ajax execute="idestacion"/>
+                   </p:selectOneMenu>
+                    <p:outputLabel value="orden en la ruta"/>
+                    <p:inputText value="#{estacionesRutasBean.estacionesrutas.ordenRuta}"
+                                 required="true" requiredMessage="orden de la ruta es obligatorio"/>
+                   <p:commandButton value="Guardar" actionListener="#{estacionesRutasBean.insertarEstacionesRutas()}"
+                                    update=":formMostrarEstacionesRutas:tablaMostrarEstacionesRutas :formIsertarMostrarEstacionesRutas"/>
+                   <p:commandButton value="Cancelar" action="#{estacionesRutasBean.cancelarEstacionesRutas()}"
+                                    update=":formIsertarMostrarEstacionesRutas"/>
+            </p:panelGrid>
+        
+        </h:form>
+        <p:separator/>
+      <h:form id="formMostrarEstacionesRutas">
+          <p:dataTable id="tablaMostrarEstacionesRutas" var="estrut" styleClass="myTable" rowStyleClass="highlight" value="#{estacionesRutasBean.listarestacionesrutas}" 
+                         emptyMessage="No hay datos de estaciones rutas">
+              
+              <p:column headerText="Id de la ruta">
+                  <h:outputText value="#{estrut.rutas.idRuta}" />
+                </p:column>   
+            <p:column headerText="Id de la estacion">
+                <h:outputText value="#{estrut.estaciones.idEstacion}" />
+            </p:column>      
+           
+              <p:column headerText="Nombre de la estacion">
+                  <h:outputText value="#{estrut.estaciones.nombreEstacion}" />
+                </p:column>
+                         
+               <p:column headerText="Orden en la ruta">
+                      <h:outputText value="#{estrut.ordenRuta}" />
+                </p:column>
+              
+                <p:column headerText="Eliminar">
+                     <p:commandButton value="Eliminar" oncomplete="PF('dlgEliminar').show();"
+                                      update=":formEliminar" style="background:#E30D34;color: #FFFFFF;font-weight: normal;">
+                         <f:setPropertyActionListener target="#{estacionesRutasBean.estacionesrutas}" value="#{estrut}"/>
+                </p:commandButton>
+                 </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog id="dlg" header="Modificar Estaciones Rutas" widgetVar="dlgModificar" showEffect="explode"
+                  hideEffect="explode" modal="true">
+        <h:form id="formModificar">
+            <p:panelGrid columns="2" style="margin:0 auto">
+                <p:outputLabel value="Nombre de la ruta"/>
+                <p:selectOneMenu value="#{estacionesRutasBean.estacionesrutas.rutas.idRuta}">
+                 <f:selectItems value="#{estacionesRutasBean.listarrutas}"/>
+               <f:selectItem itemLabel="Seleccione la ruta"/>
+             
+                </p:selectOneMenu>
+                   <p:outputLabel value="Nombre de la estacion"/>
+                   <p:selectOneMenu value="#{estacionesRutasBean.estacionesrutas.estaciones.idEstacion}">
+                       <f:selectItems value="#{estacionesRutasBean.listarestaciones}"/>
+                       <f:selectItem itemLabel="Seleccione una Estacion"/>
+                       
+                   </p:selectOneMenu>
+                   <p:commandButton value="Guardar Cambios" actionListener="#{estacionesRutasBean.modificarEstacionesRutas()}"
+                                    update=":formMostrarEstacionesRutas:tablaMostrarEstacionesRutas"
+                                    oncomplete="PF('dlgModificar').hide();"/>
+                   <p:commandButton value="Cancelar" onclick="PF('dlgModificar').hide();"/>
+            </p:panelGrid>
+        
+        </h:form>
+        </p:dialog>
+        
+        <p:dialog id="dlg2" header="Eliminar Estaciones Rutas" widgetVar="dlgEliminar" showEffect="explode"
+                  hideEffect="explode" modal="true">
+        <h:form id="formEliminar">
+            
+            <h:outputText value="Desea eliminar esta parada de ruta?"/>
+            <p:commandButton value="Si" onclick="#{estacionesRutasBean.removerEstacionesRutas()}"
+                             update=":formMostrarEstacionesRutas:tablaMostrarEstacionesRutas" oncomplete="PF('dlgEliminar').hide();"/>
+            <p:commandButton value="No" onclick="PF('dlgEliminar').hide();"/>
+        </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

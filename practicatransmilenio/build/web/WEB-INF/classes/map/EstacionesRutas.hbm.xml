@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bdtransmilenioproyecto" name="models.entity.EstacionesRutas" optimistic-lock="version" schema="dbo" table="estaciones_rutas">
+    <composite-id class="models.entity.EstacionesRutasId" name="id">
+      <key-property name="idRuta" type="string">
+        <column length="10" name="id_ruta"/>
+      </key-property>
+      <key-property name="idEstacion" type="int">
+        <column name="id_estacion"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="models.entity.Estaciones" fetch="join" insert="false"  name="estaciones" update="false">
+      <column name="id_estacion" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="models.entity.Rutas" insert="false" fetch="join" name="rutas" update="false">
+      <column length="10" name="id_ruta" not-null="true"/>
+    </many-to-one>
+    <property name="ordenRuta" type="int">
+      <column name="orden_ruta" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

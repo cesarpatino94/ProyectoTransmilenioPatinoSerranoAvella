@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bdtransmilenioproyecto" name="models.entity.Troncales" optimistic-lock="version" schema="dbo" table="troncales">
+    <id name="idTroncal" type="string">
+      <column length="1" name="id_troncal"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="nombreTroncal" type="string">
+      <column length="45" name="nombre_troncal" not-null="true"/>
+    </property>
+    <property name="longitudTroncal" type="big_decimal">
+      <column name="longitud_troncal" not-null="true" precision="5"/>
+    </property>
+    <property name="unidadesLongitud" type="string">
+      <column length="2" name="unidades_longitud" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="estacioneses" table="estaciones">
+      <key>
+        <column length="1" name="id_troncal"/>
+      </key>
+      <one-to-many class="models.entity.Estaciones"/>
+    </set>
+  </class>
+</hibernate-mapping>

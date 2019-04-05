@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://COMPUMAX®\MSSQLSERVER:1433;databaseName=bdtransmilenioproyecto</property>
+    <property name="hibernate.connection.username">proyectotransmilenio</property>
+    <property name="hibernate.connection.password">94090118301</property>
+    <mapping resource="map/Estaciones.hbm.xml"/>
+    <mapping resource="map/EstacionesRutas.hbm.xml"/>
+    <mapping resource="map/Rutas.hbm.xml"/>
+    <mapping resource="map/HorariosRutas.hbm.xml"/>
+    <mapping resource="map/Troncales.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
