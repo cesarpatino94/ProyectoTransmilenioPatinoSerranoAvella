@@ -47,8 +47,8 @@ public class estacionesRutasDaoImpl implements estacionesRutasDao{
         session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Rutas r=(Rutas) session.get(Rutas.class, estacionesrutas.getRutas().getIdRuta());
-        Estaciones e=(Estaciones) session.get(Estaciones.class, estacionesrutas.getEstaciones().getIdEstacion());
-        EstacionesRutasId eid=new EstacionesRutasId(r.getIdRuta(), e.getIdEstacion());
+        Estaciones e=(Estaciones) session.get(Estaciones.class, estacionesrutas.getEstaciones().getNombreEstacion());
+        EstacionesRutasId eid=new EstacionesRutasId(r.getIdRuta(), e.getNombreEstacion());
         EstacionesRutas er=new EstacionesRutas(eid, e, r, estacionesrutas.getOrdenRuta());
         session.save(er);
         session.getTransaction().commit();
@@ -69,8 +69,8 @@ public class estacionesRutasDaoImpl implements estacionesRutasDao{
         session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Rutas r=(Rutas) session.get(Rutas.class, estacionesrutas.getRutas().getIdRuta());
-        Estaciones e=(Estaciones) session.get(Estaciones.class, estacionesrutas.getEstaciones().getIdEstacion());
-        EstacionesRutasId eid=new EstacionesRutasId(r.getIdRuta(), e.getIdEstacion());
+        Estaciones e=(Estaciones) session.get(Estaciones.class, estacionesrutas.getEstaciones().getNombreEstacion());
+        EstacionesRutasId eid=new EstacionesRutasId(r.getIdRuta(), e.getNombreEstacion());
         EstacionesRutas er=new EstacionesRutas(eid, e, r, estacionesrutas.getOrdenRuta());
         session.update(er);
         session.getTransaction().commit();
@@ -90,14 +90,14 @@ public class estacionesRutasDaoImpl implements estacionesRutasDao{
        int result=0;
     try{
         session=HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("delete from EstacionesRutas et where et.id.idEstacion=:idestacion and et.id.idRuta=:idruta");
+        Query query = session.createQuery("delete from EstacionesRutas et where et.id.nombreEstacion=:nombreestacion and et.id.idRuta=:idruta");
         
         session.beginTransaction();
         //session.delete(operadores);
         
        
        query.setString("idruta",estacionesrutas.getRutas().getIdRuta());
-       query.setInteger("idestacion",estacionesrutas.getEstaciones().getIdEstacion());
+       query.setString("nombreestacion",estacionesrutas.getEstaciones().getNombreEstacion());
        result = query.executeUpdate();
         session.getTransaction().commit();
         
@@ -154,13 +154,13 @@ public class estacionesRutasDaoImpl implements estacionesRutasDao{
      List result=null; 
     try{
         session=HibernateUtil.getSessionFactory().openSession();
-        String hql=("select er.id from EstacionesRutas er where er.id.idEstacion=:idestacion and er.id.idRuta=:idruta");
+        String hql=("select er.id from EstacionesRutas er where er.id.nombreEstacion=:nombreestacion and er.id.idRuta=:idruta");
         
         session.beginTransaction();
         //session.delete(operadores);
      result=(List) session.createQuery(hql)
        .setParameter("idruta",estacionesrutas.getRutas().getIdRuta())
-       .setParameter("idestacion", estacionesrutas.getEstaciones().getIdEstacion())
+       .setParameter("nombreestacion", estacionesrutas.getEstaciones().getNombreEstacion())
         .list();
         
         session.getTransaction().commit();

@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="bdtransmilenioproyecto" match-schema="dbo"/>
-  <table-filter match-name="horarios_rutas"/>
   <table-filter match-name="rutas"/>
+  <table-filter match-name="horarios_rutas"/>
   <table-filter match-name="estaciones_rutas"/>
-  <table-filter match-name="troncales"/>
   <table-filter match-name="estaciones"/>
+  <table-filter match-name="troncales"/>
 </hibernate-reverse-engineering>

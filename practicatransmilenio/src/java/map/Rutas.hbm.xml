@@ -1,29 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-abr-2019 21:43:12 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bdtransmilenioproyecto" name="models.entity.Rutas" optimistic-lock="version" schema="dbo" table="rutas">
-    <id name="idRuta" type="string">
-      <column length="10" name="id_ruta"/>
-      <generator class="assigned"/>
-    </id>
-    <property name="nombreRuta" type="string">
-      <column length="45" name="nombre_ruta"/>
-    </property>
-    <property name="tipoBus" type="string">
-      <column length="1" name="tipo_bus" not-null="true"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="estacionesRutases" table="estaciones_rutas">
-      <key>
-        <column length="10" name="id_ruta" not-null="true"/>
-      </key>
-      <one-to-many class="models.entity.EstacionesRutas"/>
-    </set>
-    <set fetch="select" inverse="true" lazy="true" name="horariosRutases" table="horarios_rutas">
-      <key>
-        <column length="10" name="id_ruta" not-null="true"/>
-      </key>
-      <one-to-many class="models.entity.HorariosRutas"/>
-    </set>
-  </class>
+    <class name="models.entity.Rutas" table="rutas" schema="dbo" catalog="bdtransmilenioproyecto" optimistic-lock="version">
+        <id name="idRuta" type="string">
+            <column name="id_ruta" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreRuta" type="string">
+            <column name="nombre_ruta" length="45" />
+        </property>
+        <property name="tipoBus" type="string">
+            <column name="tipo_bus" length="1" not-null="true" />
+        </property>
+        <set name="estacionesRutases" table="estaciones_rutas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ruta" length="10" not-null="true" />
+            </key>
+            <one-to-many class="models.entity.EstacionesRutas" />
+        </set>
+        <set name="horariosRutases" table="horarios_rutas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ruta" length="10" not-null="true" />
+            </key>
+            <one-to-many class="models.entity.HorariosRutas" />
+        </set>
+    </class>
 </hibernate-mapping>

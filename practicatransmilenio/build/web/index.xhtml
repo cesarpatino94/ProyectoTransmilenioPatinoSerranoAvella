@@ -12,6 +12,10 @@ background-repeat: no-repeat;
 background-attachment: fixed;
     background-size: 100% 100%;
             }
+            footer{
+                font-weight: normal;
+            }
+            
             
    </style>
         <title>GESTION TRANSMILENIO</title>
@@ -19,28 +23,37 @@ background-attachment: fixed;
     <h:body>
         <h:form id="formmeutransmilenio">
             <p:dock position="bottom">
-            <p:menuitem value="INICIO" icon="recursos/img/iconoinicio.png" url="#"/>   
-            <p:menuitem value="TRONCAL" icon="recursos/img/iconotroncal.png" url="#"/>
-            <p:menuitem value="ESTACIONES" icon="recursos/img/iconoestaciones.png" url="#"/>
-            <p:menuitem value="RUTAS" icon="recursos/img/iconoruta.png" url="#"/>
-            <p:menuitem value="ESTACIONES RUTAS" icon="recursos/img/iconoestrutas.png" url="#"/>
+                <p:menuitem value="INICIO" icon="recursos/img/iconoinicio.png" url="index.xhtml"/>   
+            <p:menuitem value="TRONCAL" icon="recursos/img/iconotroncal.png" url="paginatroncales.xhtml" />
+            <p:menuitem value="ESTACIONES" icon="recursos/img/iconoestaciones.png" url="paginaestaciones.xhtml"/>
+            <p:menuitem value="RUTAS" icon="recursos/img/iconoruta.png" url="paginarutas.xhtml"/>
+            <p:menuitem value="ESTACIONES RUTAS" icon="recursos/img/iconoestrutas.png" url="paginaestacionesrutas.xhtml"/>
    </p:dock>
         </h:form>
         
         <h:form id="imagenes">
         
  
-            <p:panel id="idtroncales" footer="Gestion Troncales" style=" position: relative;top:20px;right: -100px;border-color: transparent; width:200px; height: 200px; background-color: transparent;">
-       
-                <p:graphicImage url="recursos/img/botoniconotroncales.jpg" width="190px" height="190px" />
-       
+            <p:panel id="idtroncales" footer="Gestion Troncales" style=" position: relative;top:20px;right: -100px;border-color: transparent; width:200px; height: 200px; background-color: transparent;font-weight: normal;">
+               
+                <p:graphicImage url="recursos/img/botoniconotroncales.jpg" width="230px" height="230px" onclick="window.location = 'paginatroncales.xhtml'"/>
+               
     </p:panel>
-             <p:panel id="idestaciones" footer="Gestion Estaciones" style=" position: relative;top:-190px;right: -500px;border-color: transparent; width:200px; height: 200px; background-color: transparent;">
-       
-                <p:graphicImage url="recursos/img/botonestaciones.jpg" width="190px" height="190px" />
-       
+             <p:panel id="idestaciones" footer="Gestion Estaciones" style=" position: relative;top:-190px;right: -670px;border-color: transparent; width:200px; height: 200px; background-color: transparent;font-weight: normal;">
+                
+                 <p:graphicImage url="recursos/img/botonestaciones.jpg" width="230px" height="230px" onclick="window.location = 'paginaestaciones.xhtml'"/>
+     
     </p:panel>
-            
+            <p:panel id="idrutas" footer="Gestion Rutas" style=" position: relative;top:-410px;right: -1200px;border-color: transparent; width:200px; height: 200px; background-color: transparent;font-weight: normal;">
+              
+                <p:graphicImage url="recursos/img/botoniconorutas.jpg" width="230px" height="230px" onclick="window.location = 'paginarutas.xhtml'"/>
+      
+    </p:panel>
+            <p:panel id="idestacionestroncales" footer="Gestion Parada Ruta" style=" position: relative;top:-280px;right: -670px;border-color: transparent; width:200px; height: 200px; background-color: transparent; z-index: 0">
+             
+                <p:graphicImage url="recursos/img/botonestacionesrutas.jpg" width="230px" height="230px" onclick="window.location = 'paginaestacionesrutas.xhtml'"/>
+     
+    </p:panel>
         </h:form>
 
     </h:body>

@@ -1,24 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-abr-2019 21:43:12 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bdtransmilenioproyecto" name="models.entity.EstacionesRutas" optimistic-lock="version" schema="dbo" table="estaciones_rutas">
-    <composite-id class="models.entity.EstacionesRutasId" name="id">
-      <key-property name="idRuta" type="string">
-        <column length="10" name="id_ruta"/>
-      </key-property>
-      <key-property name="idEstacion" type="int">
-        <column name="id_estacion"/>
-      </key-property>
-    </composite-id>
-    <many-to-one class="models.entity.Estaciones" fetch="join" insert="false"  name="estaciones" update="false">
-      <column name="id_estacion" not-null="true"/>
-    </many-to-one>
-    <many-to-one class="models.entity.Rutas" insert="false" fetch="join" name="rutas" update="false">
-      <column length="10" name="id_ruta" not-null="true"/>
-    </many-to-one>
-    <property name="ordenRuta" type="int">
-      <column name="orden_ruta" not-null="true"/>
-    </property>
-  </class>
+    <class name="models.entity.EstacionesRutas" table="estaciones_rutas" schema="dbo" catalog="bdtransmilenioproyecto" optimistic-lock="version">
+        <composite-id name="id" class="models.entity.EstacionesRutasId">
+            <key-property name="idRuta" type="string">
+                <column name="id_ruta" length="10" />
+            </key-property>
+            <key-property name="nombreEstacion" type="string">
+                <column name="nombre_estacion" length="30" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="estaciones" class="models.entity.Estaciones" update="false" insert="false" fetch="select">
+            <column name="nombre_estacion" length="30" not-null="true" />
+        </many-to-one>
+        <many-to-one name="rutas" class="models.entity.Rutas" update="false" insert="false" fetch="select">
+            <column name="id_ruta" length="10" not-null="true" />
+        </many-to-one>
+        <property name="ordenRuta" type="int">
+            <column name="orden_ruta" not-null="true" />
+        </property>
+    </class>
 </hibernate-mapping>

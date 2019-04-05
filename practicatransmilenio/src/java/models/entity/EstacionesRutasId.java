@@ -1,5 +1,5 @@
 package models.entity;
-// Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1
+// Generated 03-abr-2019 21:43:08 by Hibernate Tools 4.3.1
 
 
 
@@ -10,14 +10,14 @@ public class EstacionesRutasId  implements java.io.Serializable {
 
 
      private String idRuta;
-     private int idEstacion;
+     private String nombreEstacion;
 
     public EstacionesRutasId() {
     }
 
-    public EstacionesRutasId(String idRuta, int idEstacion) {
+    public EstacionesRutasId(String idRuta, String nombreEstacion) {
        this.idRuta = idRuta;
-       this.idEstacion = idEstacion;
+       this.nombreEstacion = nombreEstacion;
     }
    
     public String getIdRuta() {
@@ -27,12 +27,12 @@ public class EstacionesRutasId  implements java.io.Serializable {
     public void setIdRuta(String idRuta) {
         this.idRuta = idRuta;
     }
-    public int getIdEstacion() {
-        return this.idEstacion;
+    public String getNombreEstacion() {
+        return this.nombreEstacion;
     }
     
-    public void setIdEstacion(int idEstacion) {
-        this.idEstacion = idEstacion;
+    public void setNombreEstacion(String nombreEstacion) {
+        this.nombreEstacion = nombreEstacion;
     }
 
 
@@ -43,14 +43,14 @@ public class EstacionesRutasId  implements java.io.Serializable {
 		 EstacionesRutasId castOther = ( EstacionesRutasId ) other; 
          
 		 return ( (this.getIdRuta()==castOther.getIdRuta()) || ( this.getIdRuta()!=null && castOther.getIdRuta()!=null && this.getIdRuta().equals(castOther.getIdRuta()) ) )
- && (this.getIdEstacion()==castOther.getIdEstacion());
+ && ( (this.getNombreEstacion()==castOther.getNombreEstacion()) || ( this.getNombreEstacion()!=null && castOther.getNombreEstacion()!=null && this.getNombreEstacion().equals(castOther.getNombreEstacion()) ) );
    }
    
    public int hashCode() {
          int result = 17;
          
          result = 37 * result + ( getIdRuta() == null ? 0 : this.getIdRuta().hashCode() );
-         result = 37 * result + this.getIdEstacion();
+         result = 37 * result + ( getNombreEstacion() == null ? 0 : this.getNombreEstacion().hashCode() );
          return result;
    }   
 

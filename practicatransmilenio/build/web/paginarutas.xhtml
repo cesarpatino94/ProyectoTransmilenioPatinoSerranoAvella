@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+             <script>
+
+function validarletrasnumeros(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) return true;
+    patron =/[A-Za-z0-9 ]/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+function validarletrasnumerosg(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) return true;
+    patron =/[A-Za-z0-9-]/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+function validarnumeros(e)
+{
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
+    patron = /[0-9.]/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+   </script>
+        <style type="text/css">
+            body{
+                background-image: url('recursos/img/fondoprincipalgestiontron.jpg');
+background-repeat: no-repeat;
+background-attachment: fixed;
+    background-size: 100% 100%;
+            }
+.highlight {
+    background:#FFFFFF  !important ;
+    border-color:#000000;
+}
+     .ui-datatable.myTable th {
+         background: #0066cc;
+         font-weight: normal;
+         border-color:#000000;
+         color: #000000;
+         text-shadow:none;
+         
+}
+</style>
+        <title>Gestion Rutas</title>
+    </h:head>
+    <h:body>
+      <p:growl id="mensajegeneral" autoUpdate="true" showDetail="true" life="3000"/>
+         <h:form id="formmenurtransmilenio">
+            <p:dock position="bottom">
+                <p:menuitem value="INICIO" icon="recursos/img/iconoinicio.png" url="index.xhtml"/>   
+            <p:menuitem value="TRONCAL" icon="recursos/img/iconotroncal.png" url="paginatroncales.xhtml" />
+            <p:menuitem value="ESTACIONES" icon="recursos/img/iconoestaciones.png" url="paginaestaciones.xhtml"/>
+            <p:menuitem value="RUTAS" icon="recursos/img/iconoruta.png" url="paginarutas.xhtml"/>
+            <p:menuitem value="ESTACIONES RUTAS" icon="recursos/img/iconoestrutas.png" url="paginaestacionesrutas.xhtml"/>
+   </p:dock>
+        </h:form>
+      <h:form id="botongeneradatosmas">
+           <p:commandButton value="Generar Datos Masivos" oncomplete="PF('dlginsertardatosm').show();"
+                                      update=":formInsertarDatosMasivos" style="background:#0033ff;color: #FFFFFF;font-weight: normal;"/>
+                         
+             
+      </h:form>
+      <p:dialog id="dlginserdato" header="Generar Datos Masivos" widgetVar="dlginsertardatosm" showEffect="explode"
+                  hideEffect="explode" modal="true">
+        <h:form id="formInsertarDatosMasivos">
+            <p:panelGrid columns="2" style="margin:0 auto">
+            <p:outputLabel  value="Cantidad de datos a Generar"/>
+            <p:inputText value="#{rutasBean.cantidaddatos}"
+                                 required="true" requiredMessage="cantidad datos es obligatorio" onkeypress = "return validarnumeros(event)"/>
+              <p:commandButton value="Generar" actionListener="#{rutasBean.cargamasivadatosRutas()}" 
+                              onclick="PF('dlginsertardatosm').hide();" update=":formMostrarRutas:tablaMostrarRutas :formIsertarMostrarRutas" />
+             <p:commandButton value="Cancelar" action="#{rutasBean.cancelarGenerarDatosRutas()}" 
+                              onclick="PF('dlginsertardatosm').hide();" update=":formIsertarMostrarRutas"/>
+                                    
+             </p:panelGrid>
+        </h:form>
+        </p:dialog>
+      
+         <h:form id="formIsertarMostrarRutas">
+            <p:panelGrid columns="2" style="margin:0 auto">
+                <p:outputLabel value="id de la ruta"/>
+                <p:inputText value="#{rutasBean.rutas.idRuta}"
+                                 required="true" requiredMessage="id de la ruta es obligatorio" onkeypress = "return validarletrasnumerosg(event)"/>
+                   <p:outputLabel  value="nombre de la ruta"/>
+                   <p:inputText value="#{rutasBean.rutas.nombreRuta}" onkeypress = "return validarletrasnumeros(event)"/>
+                    
+             <p:outputLabel id="tipob" value="Tipo de Bus"/>
+             <p:selectOneMenu id="idtipob" value="#{rutasBean.rutas.tipoBus}" 
+                                 required="true" requiredMessage="la troncal es obligatorio">
+                    <f:selectItem itemLabel="Seleccione un tipo de bus" itemValue=""/>
+                     <f:selectItem itemLabel="Transmilenio" itemValue="T"/>
+                     <f:selectItem itemLabel="Alimentador" itemValue="A"/>
+                     <f:selectItem itemLabel="Urbano" itemValue="U"/>
+                    <f:ajax execute="idtipob"/>
+                </p:selectOneMenu>
+             
+             <p:commandButton value="Guardar" actionListener="#{rutasBean.insertarRutas()}"
+                                    update=":formMostrarRutas:tablaMostrarRutas :formIsertarMostrarRutas"/>
+             <p:commandButton value="Cancelar" action="#{rutasBean.cancelarRutas()}"
+                                    update=":formIsertarMostrarRutas"/>
+            </p:panelGrid>
+        
+        </h:form>      
+        <p:separator/>
+      <h:form id="formMostrarRutas">
+          <p:dataTable id="tablaMostrarRutas" var="rut" styleClass="myTable" rowStyleClass="highlight" value="#{rutasBean.listarrutas}" 
+                         emptyMessage="No hay datos de Rutas">
+              
+              <p:column headerText="Id Ruta">
+                  <h:outputText value="#{rut.idRuta}"/>
+                </p:column>  
+              <p:column headerText="Nombre Ruta">
+                  <h:outputText value="#{rut.nombreRuta}" />
+            </p:column>    
+            <p:column headerText="Tipo bus">
+                <h:outputText value="#{rut.tipoBus}" />
+            </p:column>                
+                
+                 <p:column headerText="Modificar">
+                     <p:commandButton value="Modificar" oncomplete="PF('dlgModificar').show();"
+                                      update=":formModificar" style="background:#0033ff;color: #FFFFFF;font-weight: normal;">
+                         <f:setPropertyActionListener target="#{rutasBean.rutas}" value="#{rut}"/>
+                </p:commandButton>
+                 </p:column>
+                <p:column headerText="Eliminar">
+                     <p:commandButton value="Eliminar" oncomplete="PF('dlgEliminar').show();"
+                                      update=":formEliminar" style="background:#E30D34;color: #FFFFFF;font-weight: normal;">
+                         <f:setPropertyActionListener target="#{rutasBean.rutas}" value="#{rut}"/>
+                </p:commandButton>
+                 </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog id="dlg" header="Modificar Rutas" widgetVar="dlgModificar" showEffect="explode"
+                  hideEffect="explode" modal="true">
+        <h:form id="formModificar">
+            <p:panelGrid columns="2" style="margin:0 auto">
+               <p:outputLabel value="id de la ruta"/>
+                <p:inputText value="#{rutasBean.rutas.idRuta}"
+                             required="true" requiredMessage="id de la ruta es obligatorio" readonly="true" onkeypress = "return validarletrasnumerosg(event)"/>
+                   <p:outputLabel  value="nombre de la ruta"/>
+                   <p:inputText value="#{rutasBean.rutas.nombreRuta}" onkeypress = "return validarletrasnumeros(event)"/>
+                    
+             <p:outputLabel id="tipob" value="Tipo de Bus"/>
+             <p:selectOneMenu id="idtipob" value="#{rutasBean.rutas.tipoBus}" 
+                                 required="true" requiredMessage="El tipo de bus es obligatorio">
+                    <f:selectItem itemLabel="Seleccione un Tipo de bus" itemValue=""/>
+                     <f:selectItem itemLabel="Transmilenio" itemValue="T"/>
+                     <f:selectItem itemLabel="Alimentador" itemValue="A"/>
+                     <f:selectItem itemLabel="Urbano" itemValue="U"/>
+                    <f:ajax execute="idtipob"/>
+                </p:selectOneMenu>
+             <p:commandButton value="Guardar Cambios" actionListener="#{rutasBean.modificarRutas()}"
+                                    update=":formMostrarRutas:tablaMostrarRutas"
+                                    oncomplete="PF('dlgModificar').hide();"/>
+                   <p:commandButton value="Cancelar" onclick="PF('dlgModificar').hide();"/>
+            </p:panelGrid>
+        
+        </h:form>
+        </p:dialog>
+        
+        <p:dialog id="dlg2" header="Eliminar Rutas" widgetVar="dlgEliminar" showEffect="explode"
+                  hideEffect="explode" modal="true">
+        <h:form id="formEliminar">
+            
+            <h:outputText value="Desea eliminar esta Ruta?"/>
+            <p:commandButton value="Si" onclick="#{rutasBean.removerRutas()}"
+                             update=":formMostrarRutas:tablaMostrarRutas" oncomplete="PF('dlgEliminar').hide();"/>
+            <p:commandButton value="No" onclick="PF('dlgEliminar').hide();"/>
+        </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

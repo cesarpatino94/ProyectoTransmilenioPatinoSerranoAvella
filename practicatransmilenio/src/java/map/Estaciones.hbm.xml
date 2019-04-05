@@ -1,29 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-abr-2019 21:43:12 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bdtransmilenioproyecto" name="models.entity.Estaciones" optimistic-lock="version" schema="dbo" table="estaciones">
-    <id name="idEstacion" type="int">
-      <column name="id_estacion"/>
-      <generator class="assigned"/>
-    </id>
-    <many-to-one class="models.entity.Troncales" fetch="join" name="troncales">
-      <column length="1" name="id_troncal"/>
-    </many-to-one>
-    <property name="nombreEstacion" type="string">
-      <column length="45" name="nombre_estacion" not-null="true"/>
-    </property>
-    <property name="tipoEstacion" type="string">
-      <column length="1" name="tipo_estacion" not-null="true"/>
-    </property>
-    <property name="tipoCabecera" type="string">
-      <column length="1" name="tipo_cabecera"/>
-    </property>
-    <set fetch="join" inverse="true" lazy="true" name="estacionesRutases" table="estaciones_rutas">
-      <key>
-        <column name="id_estacion" not-null="true"/>
-      </key>
-      <one-to-many class="models.entity.EstacionesRutas"/>
-    </set>
-  </class>
+    <class name="models.entity.Estaciones" table="estaciones" schema="dbo" catalog="bdtransmilenioproyecto" optimistic-lock="version">
+        <id name="nombreEstacion" type="string">
+            <column name="nombre_estacion" length="30" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="troncales" class="models.entity.Troncales" fetch="select">
+            <column name="id_troncal" length="1" />
+        </many-to-one>
+        <property name="tipoEstacion" type="string">
+            <column name="tipo_estacion" length="1" not-null="true" />
+        </property>
+        <property name="tipoCabecera" type="string">
+            <column name="tipo_cabecera" length="1" />
+        </property>
+        <set name="estacionesRutases" table="estaciones_rutas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="nombre_estacion" length="30" not-null="true" />
+            </key>
+            <one-to-many class="models.entity.EstacionesRutas" />
+        </set>
+    </class>
 </hibernate-mapping>

@@ -3,13 +3,13 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-    <property name="hibernate.connection.url">jdbc:sqlserver://COMPUMAX®\MSSQLSERVER:1433;databaseName=bdtransmilenioproyecto</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-8STB6RQ\MSSQLSERVER:1433;databaseName=bdtransmilenioproyecto</property>
     <property name="hibernate.connection.username">proyectotransmilenio</property>
     <property name="hibernate.connection.password">94090118301</property>
-    <mapping resource="map/Estaciones.hbm.xml"/>
-    <mapping resource="map/EstacionesRutas.hbm.xml"/>
     <mapping resource="map/Rutas.hbm.xml"/>
-    <mapping resource="map/HorariosRutas.hbm.xml"/>
     <mapping resource="map/Troncales.hbm.xml"/>
+    <mapping resource="map/HorariosRutas.hbm.xml"/>
+    <mapping resource="map/EstacionesRutas.hbm.xml"/>
+    <mapping resource="map/Estaciones.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

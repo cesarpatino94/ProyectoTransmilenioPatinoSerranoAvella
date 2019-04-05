@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+     <script>
+
+function validarletrasnumeros(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) return true;
+    patron =/[A-Za-z0-9 ]/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+function validarnumeros(e)
+{
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
+    patron = /[0-9.]/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+   </script>
+        <style type="text/css">
+            body{
+                background-image: url('recursos/img/fondoprincipalgestiontron.jpg');
+background-repeat: no-repeat;
+background-attachment: fixed;
+    background-size: 100% 100%;
+            }
+.highlight {
+    background:#FFFFFF  !important ;
+    border-color:#000000;
+}
+     .ui-datatable.myTable th {
+         background: #0066cc;
+         font-weight: normal;
+         border-color:#000000;
+         color: #000000;
+         text-shadow:none;
+         
+}
+</style>
+        <title>GESTION TRONCALES</title>
+    </h:head>
+    <h:body>
+      <p:growl id="mensajegeneral" autoUpdate="true" showDetail="true" life="3000"/>
+         <h:form id="formmenuttransmilenio">
+            <p:dock position="bottom">
+                <p:menuitem value="INICIO" icon="recursos/img/iconoinicio.png" url="index.xhtml"/>   
+            <p:menuitem value="TRONCAL" icon="recursos/img/iconotroncal.png" url="paginatroncales.xhtml" />
+            <p:menuitem value="ESTACIONES" icon="recursos/img/iconoestaciones.png" url="paginaestaciones.xhtml"/>
+            <p:menuitem value="RUTAS" icon="recursos/img/iconoruta.png" url="paginarutas.xhtml"/>
+            <p:menuitem value="ESTACIONES RUTAS" icon="recursos/img/iconoestrutas.png" url="paginaestacionesrutas.xhtml"/>
+   </p:dock>
+        </h:form>
+         <h:form id="formIsertarMostrarTroncales">
+            <p:panelGrid columns="2" style="margin:0 auto">
+                <p:outputLabel value="Id de la troncal"/>
+                <p:selectOneMenu id="idtroncal" value="#{troncalesBean.troncales.idTroncal}" 
+                                 required="true" requiredMessage="la troncal es obligatorio">
+                    <f:selectItem itemLabel="Seleccione una Troncal" itemValue=""/>
+                     <f:selectItem itemLabel="A" itemValue="A"/>
+                       <f:selectItem itemLabel="B" itemValue="B"/>
+                       <f:selectItem itemLabel="C" itemValue="C"/>
+                       <f:selectItem itemLabel="D" itemValue="D"/>
+                       <f:selectItem itemLabel="E" itemValue="E"/>
+                       <f:selectItem itemLabel="F" itemValue="F"/>
+                       <f:selectItem itemLabel="G" itemValue="G"/>
+                       <f:selectItem itemLabel="H" itemValue="H"/>
+                       <f:selectItem itemLabel="I" itemValue="I"/>
+                       <f:selectItem itemLabel="J" itemValue="J"/>
+                       <f:selectItem itemLabel="K" itemValue="K"/>
+                       <f:selectItem itemLabel="L" itemValue="L"/>
+                       <f:selectItem itemLabel="M" itemValue="M"/>
+
+                    <f:ajax execute="idtroncal"/>
+                </p:selectOneMenu>
+                   <p:outputLabel  value="Nombre de la troncal"/>
+                   <p:inputText id="nombretroncal" value="#{troncalesBean.troncales.nombreTroncal}"
+                                 required="true" requiredMessage="nombre de la troncal es obligatorio" onkeypress = "return validarletrasnumeros(event)"/>
+                    <p:outputLabel id="longitudtroncal" value="Longitud Troncal"/>
+                    <p:inputText value="#{troncalesBean.troncales.longitudTroncal}"
+                                 required="true" requiredMessage="Longitud de la troncal es obligatorio" onkeypress = "return validarnumeros(event)" />
+             <p:outputLabel id="unidadeslongitudt" value="Unidades Longitud Troncal"/>
+             <p:selectOneMenu id="idunidad" value="#{troncalesBean.troncales.unidadesLongitud}" 
+                                 required="true" requiredMessage="la troncal es obligatorio">
+                    <f:selectItem itemLabel="Seleccione una Unidad" itemValue=""/>
+                     <f:selectItem itemLabel="KM" itemValue="KM"/>
+                    <f:ajax execute="idunidad"/>
+                </p:selectOneMenu>
+             <p:commandButton value="Guardar" actionListener="#{troncalesBean.insertarTroncales()}"
+                                    update=":formMostrarTroncales:tablaMostrarTroncales :formIsertarMostrarTroncales"/>
+             <p:commandButton value="Cancelar" action="#{troncalesBean.cancelarTroncales()}"
+                                    update=":formIsertarMostrarTroncales"/>
+            </p:panelGrid>
+        
+        </h:form>
+        <p:separator/>
+      <h:form id="formMostrarTroncales">
+          <p:dataTable id="tablaMostrarTroncales" var="tronc" styleClass="myTable" rowStyleClass="highlight" value="#{troncalesBean.listartroncales}" 
+                         emptyMessage="No hay datos de Troncales">
+              
+              <p:column headerText="Id de la troncal">
+                  <h:outputText value="#{tronc.idTroncal}"/>
+                </p:column>   
+            <p:column headerText="Nombre de la troncal">
+                <h:outputText value="#{tronc.nombreTroncal}" />
+            </p:column>                
+               <p:column headerText="Longitud Troncal">
+                   <h:outputText value="#{tronc.longitudTroncal}" />
+                </p:column>
+               <p:column headerText="Unidades Longitud">
+                   <h:outputText value="#{tronc.unidadesLongitud}" />
+                </p:column>
+                 <p:column headerText="Modificar">
+                     <p:commandButton value="Modificar" oncomplete="PF('dlgModificar').show();"
+                                      update=":formModificar" style="background:#0033ff;color: #FFFFFF;font-weight: normal;">
+                         <f:setPropertyActionListener target="#{troncalesBean.troncales}" value="#{tronc}"/>
+                </p:commandButton>
+                 </p:column>
+                <p:column headerText="Eliminar">
+                     <p:commandButton value="Eliminar" oncomplete="PF('dlgEliminar').show();"
+                                      update=":formEliminar" style="background:#E30D34;color: #FFFFFF;font-weight: normal;">
+                         <f:setPropertyActionListener target="#{troncalesBean.troncales}" value="#{tronc}"/>
+                </p:commandButton>
+                 </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog id="dlg" header="Modificar Troncal" widgetVar="dlgModificar" showEffect="explode"
+                  hideEffect="explode" modal="true">
+        <h:form id="formModificar">
+            <p:panelGrid columns="2" style="margin:0 auto">
+               <p:outputLabel value="Id de la troncal"/>
+               <p:inputText value="#{troncalesBean.troncales.idTroncal}"
+                            required="true" requiredMessage="id de la troncal es obligatorio" readonly="true"/>
+
+                   <p:outputLabel id="nombretroncalm" value="Nombre de la troncal"/>
+                   <p:inputText value="#{troncalesBean.troncales.nombreTroncal}"
+                                 required="true" requiredMessage="nombre de la troncal es obligatorio" onkeypress = "return validarletrasnumeros(event)"/>
+                    <p:outputLabel id="longitudtroncalm" value="Longitud Troncal"/>
+                    <p:inputText value="#{troncalesBean.troncales.longitudTroncal}"
+                                 required="true" requiredMessage="Longitud de la troncal es obligatorio" onkeypress = "return validarnumeros(event)" />
+             <p:outputLabel id="unidadeslongitudtm" value="Unidades Longitud Troncal"/>
+             <p:selectOneMenu id="idunidadm" value="#{troncalesBean.troncales.unidadesLongitud}" 
+                                 required="true" requiredMessage="la troncal es obligatorio">
+                     <f:selectItem itemLabel="KG" itemValue="KG"/>
+                    <f:ajax execute="idunidadm"/>
+                </p:selectOneMenu>
+             <p:commandButton value="Guardar Cambios" actionListener="#{troncalesBean.modificarTroncales()}"
+                                    update=":formMostrarTroncales:tablaMostrarTroncales"
+                                    oncomplete="PF('dlgModificar').hide();"/>
+                   <p:commandButton value="Cancelar" onclick="PF('dlgModificar').hide();"/>
+            </p:panelGrid>
+        
+        </h:form>
+        </p:dialog>
+        
+        <p:dialog id="dlg2" header="Eliminar Troncales" widgetVar="dlgEliminar" showEffect="explode"
+                  hideEffect="explode" modal="true">
+        <h:form id="formEliminar">
+            
+            <h:outputText value="Desea eliminar esta Troncal?"/>
+            <p:commandButton value="Si" onclick="#{troncalesBean.removerTroncales()}"
+                             update=":formMostrarTroncales:tablaMostrarTroncales" oncomplete="PF('dlgEliminar').hide();"/>
+            <p:commandButton value="No" onclick="PF('dlgEliminar').hide();"/>
+        </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

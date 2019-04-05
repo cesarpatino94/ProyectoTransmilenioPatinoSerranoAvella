@@ -1,5 +1,5 @@
 package models.entity;
-// Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1
+// Generated 03-abr-2019 21:43:08 by Hibernate Tools 4.3.1
 
 
 
@@ -17,17 +17,10 @@ public class EstacionesRutas  implements java.io.Serializable {
     public EstacionesRutas() {
         estaciones=new Estaciones();
         rutas=new Rutas();
-        id=new EstacionesRutasId() ;
-   }
-
-    public EstacionesRutas(EstacionesRutasId id, Estaciones estaciones, Rutas rutas, int ordenRuta) {
-        this.id = id;
-        this.estaciones = estaciones;
-        this.rutas = rutas;
-        this.ordenRuta = ordenRuta;
     }
 
-    public EstacionesRutas(Estaciones estaciones, Rutas rutas, int ordenRuta) {
+    public EstacionesRutas(EstacionesRutasId id, Estaciones estaciones, Rutas rutas, int ordenRuta) {
+       this.id = id;
        this.estaciones = estaciones;
        this.rutas = rutas;
        this.ordenRuta = ordenRuta;

@@ -28,8 +28,17 @@ background-attachment: fixed;
          <title>GESTION ESTACIONES RUTAS</title>
     </h:head>
     <h:body>
-       <p:growl id="mensajegeneral" autoUpdate="true" showDetail="true" life="3000"/>
         
+       <p:growl id="mensajegeneral" autoUpdate="true" showDetail="true" life="3000"/>
+         <h:form id="formmeutransmilenio">
+            <p:dock position="bottom">
+                <p:menuitem value="INICIO" icon="recursos/img/iconoinicio.png" url="index.xhtml"/>   
+            <p:menuitem value="TRONCAL" icon="recursos/img/iconotroncal.png" url="paginatroncales.xhtml" />
+            <p:menuitem value="ESTACIONES" icon="recursos/img/iconoestaciones.png" url="paginaestaciones.xhtml"/>
+            <p:menuitem value="RUTAS" icon="recursos/img/iconoruta.png" url="paginarutas.xhtml"/>
+            <p:menuitem value="ESTACIONES RUTAS" icon="recursos/img/iconoestrutas.png" url="paginaestacionesrutas.xhtml"/>
+   </p:dock>
+        </h:form>
          <h:form id="formIsertarMostrarEstacionesRutas">
             <p:panelGrid columns="2" style="margin:0 auto">
                 <p:outputLabel value="Nombre de la ruta"/>
@@ -40,7 +49,7 @@ background-attachment: fixed;
                     <f:ajax execute="idruta"/>
                 </p:selectOneMenu>
                    <p:outputLabel id="idestacion" value="Nombre de la estacion"/>
-                   <p:selectOneMenu value="#{estacionesRutasBean.estacionesrutas.estaciones.idEstacion}"
+                   <p:selectOneMenu value="#{estacionesRutasBean.estacionesrutas.estaciones.nombreEstacion}"
                                     required="true" requiredMessage="nombre de la estacion es obligatorio">
                         <f:selectItem itemLabel="Seleccione una Estacion"/>
                         <f:selectItems value="#{estacionesRutasBean.listarestaciones}"/>
@@ -64,10 +73,7 @@ background-attachment: fixed;
               <p:column headerText="Id de la ruta">
                   <h:outputText value="#{estrut.rutas.idRuta}" />
                 </p:column>   
-            <p:column headerText="Id de la estacion">
-                <h:outputText value="#{estrut.estaciones.idEstacion}" />
-            </p:column>      
-           
+ 
               <p:column headerText="Nombre de la estacion">
                   <h:outputText value="#{estrut.estaciones.nombreEstacion}" />
                 </p:column>
@@ -95,7 +101,7 @@ background-attachment: fixed;
              
                 </p:selectOneMenu>
                    <p:outputLabel value="Nombre de la estacion"/>
-                   <p:selectOneMenu value="#{estacionesRutasBean.estacionesrutas.estaciones.idEstacion}">
+                   <p:selectOneMenu value="#{estacionesRutasBean.estacionesrutas.estaciones.nombreEstacion}">
                        <f:selectItems value="#{estacionesRutasBean.listarestaciones}"/>
                        <f:selectItem itemLabel="Seleccione una Estacion"/>
                        

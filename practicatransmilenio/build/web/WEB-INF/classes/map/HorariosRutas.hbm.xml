@@ -1,30 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-abr-2019 21:43:12 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="bdtransmilenioproyecto" name="models.entity.HorariosRutas" optimistic-lock="version" schema="dbo" table="horarios_rutas">
-    <composite-id class="models.entity.HorariosRutasId" name="id">
-      <key-property name="idHorario" type="string">
-        <column length="3" name="id_horario"/>
-      </key-property>
-      <key-property name="idRuta" type="string">
-        <column length="10" name="id_ruta"/>
-      </key-property>
-    </composite-id>
-    <many-to-one class="models.entity.Rutas" fetch="select" insert="false" name="rutas" update="false">
-      <column length="10" name="id_ruta" not-null="true"/>
-    </many-to-one>
-    <property name="diaInicio" type="int">
-      <column name="dia_inicio" not-null="true"/>
-    </property>
-    <property name="diaFin" type="java.lang.Integer">
-      <column name="dia_fin"/>
-    </property>
-    <property name="horaInicio" type="time">
-      <column length="16" name="hora_inicio" not-null="true"/>
-    </property>
-    <property name="horaFin" type="time">
-      <column length="16" name="hora_fin" not-null="true"/>
-    </property>
-  </class>
+    <class name="models.entity.HorariosRutas" table="horarios_rutas" schema="dbo" catalog="bdtransmilenioproyecto" optimistic-lock="version">
+        <composite-id name="id" class="models.entity.HorariosRutasId">
+            <key-property name="idHorario" type="string">
+                <column name="id_horario" length="3" />
+            </key-property>
+            <key-property name="idRuta" type="string">
+                <column name="id_ruta" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="rutas" class="models.entity.Rutas" update="false" insert="false" fetch="select">
+            <column name="id_ruta" length="10" not-null="true" />
+        </many-to-one>
+        <property name="diaInicio" type="int">
+            <column name="dia_inicio" not-null="true" />
+        </property>
+        <property name="diaFin" type="java.lang.Integer">
+            <column name="dia_fin" />
+        </property>
+        <property name="horaInicio" type="time">
+            <column name="hora_inicio" length="16" not-null="true" />
+        </property>
+        <property name="horaFin" type="time">
+            <column name="hora_fin" length="16" not-null="true" />
+        </property>
+    </class>
 </hibernate-mapping>

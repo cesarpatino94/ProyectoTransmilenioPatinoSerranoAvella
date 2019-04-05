@@ -48,7 +48,7 @@ private List<SelectItem> listarrutas;
         List<Estaciones> e=etDao.ListarEstaciones();
     
         for(Estaciones esta:e){
-            SelectItem estacionitem=new SelectItem(esta.getIdEstacion(),esta.getNombreEstacion());
+            SelectItem estacionitem=new SelectItem(esta.getNombreEstacion(),esta.getNombreEstacion());
         this.listarestaciones.add(estacionitem);
         }
         return listarestaciones;
@@ -72,11 +72,14 @@ private List<SelectItem> listarrutas;
         if(etDao.buscarEstacionesRutas(estacionesrutas).size()==0){
             
          etDao.nuevoEstacionesRutas(estacionesrutas);
-         
+      
          FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Correcto","se agrego correctamente"));
+        
         }else{
-           FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No fue posible eliminar porque ya se ha registrado"));   
+    
+           FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No fue posible agregar porque ya se ha registrado"));   
         }
+           estacionesrutas=new EstacionesRutas();
     }
     
     

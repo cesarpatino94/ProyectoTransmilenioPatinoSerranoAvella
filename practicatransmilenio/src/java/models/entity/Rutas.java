@@ -1,5 +1,5 @@
 package models.entity;
-// Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1
+// Generated 03-abr-2019 21:43:08 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,6 +18,12 @@ public class Rutas  implements java.io.Serializable {
      private Set<HorariosRutas> horariosRutases = new HashSet(0);
 
     public Rutas() {
+    }
+
+    public Rutas(String idRuta, String nombreRuta, String tipoBus) {
+        this.idRuta = idRuta;
+        this.nombreRuta = nombreRuta;
+        this.tipoBus = tipoBus;
     }
 
 	

@@ -28,7 +28,10 @@
       <web-resource-name>Non Secured Content</web-resource-name>
       <url-pattern>/index.xhtml</url-pattern>
       <url-pattern>/paginaestacionesrutas.xhtml</url-pattern>
-     
+     <url-pattern>/paginarutas.xhtml</url-pattern>
+     <url-pattern>/paginaestaciones.xhtml</url-pattern>
+     <url-pattern>/paginatroncales.xhtml</url-pattern>
     </web-resource-collection>
   </security-constraint>
+
 </web-app>

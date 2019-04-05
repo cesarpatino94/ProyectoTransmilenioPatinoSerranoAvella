@@ -1,5 +1,5 @@
 package models.entity;
-// Generated 02-abr-2019 12:32:39 by Hibernate Tools 4.3.1
+// Generated 03-abr-2019 21:43:08 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,37 +11,35 @@ import java.util.Set;
 public class Estaciones  implements java.io.Serializable {
 
 
-     private int idEstacion;
-     private Troncales troncales;
      private String nombreEstacion;
+     private Troncales troncales;
      private String tipoEstacion;
      private String tipoCabecera;
      private Set<EstacionesRutas> estacionesRutases = new HashSet(0);
 
     public Estaciones() {
+        troncales=new Troncales();
     }
 
 	
-    public Estaciones(int idEstacion, String nombreEstacion, String tipoEstacion) {
-        this.idEstacion = idEstacion;
+    public Estaciones(String nombreEstacion, String tipoEstacion) {
         this.nombreEstacion = nombreEstacion;
         this.tipoEstacion = tipoEstacion;
     }
-    public Estaciones(int idEstacion, Troncales troncales, String nombreEstacion, String tipoEstacion, String tipoCabecera, Set estacionesRutases) {
-       this.idEstacion = idEstacion;
-       this.troncales = troncales;
+    public Estaciones(String nombreEstacion, Troncales troncales, String tipoEstacion, String tipoCabecera, Set estacionesRutases) {
        this.nombreEstacion = nombreEstacion;
+       this.troncales = troncales;
        this.tipoEstacion = tipoEstacion;
        this.tipoCabecera = tipoCabecera;
        this.estacionesRutases = estacionesRutases;
     }
    
-    public int getIdEstacion() {
-        return this.idEstacion;
+    public String getNombreEstacion() {
+        return this.nombreEstacion;
     }
     
-    public void setIdEstacion(int idEstacion) {
-        this.idEstacion = idEstacion;
+    public void setNombreEstacion(String nombreEstacion) {
+        this.nombreEstacion = nombreEstacion;
     }
     public Troncales getTroncales() {
         return this.troncales;
@@ -49,13 +47,6 @@ public class Estaciones  implements java.io.Serializable {
     
     public void setTroncales(Troncales troncales) {
         this.troncales = troncales;
-    }
-    public String getNombreEstacion() {
-        return this.nombreEstacion;
-    }
-    
-    public void setNombreEstacion(String nombreEstacion) {
-        this.nombreEstacion = nombreEstacion;
     }
     public String getTipoEstacion() {
         return this.tipoEstacion;
